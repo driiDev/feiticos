@@ -19,6 +19,8 @@ public class Feitico {
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
+    @Enumerated(EnumType.STRING)
     private Tipo tipo;
+
     private Integer nivelDificuldade;
 }
