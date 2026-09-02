@@ -20,7 +20,7 @@ public class FeiticoService {
         String descricaoFinal = request.getDescricao();
         Integer nivelDificuldadeFinal = request.getNivelDificuldade();
 
-        if (descricaoFinal == null || descricaoFinal.isBlank() || nivelDificuldadeFinal == null) {
+        if (descricaoFinal == null || descricaoFinal.isBlank()) {
 
             String prompt = "Você é um grimório técnico e enciclopédico do universo de magia. "
                     + "Gere uma descrição OBJETIVA e FOCADA NO EFEITO PRÁTICO para o feitiço: " + request.getNome()
@@ -31,10 +31,10 @@ public class FeiticoService {
             String respostaIA = chatModel.call(prompt);
 
             descricaoFinal = respostaIA;
+        }
 
-            if (nivelDificuldadeFinal == null) {
+        if (nivelDificuldadeFinal == null) {
                 nivelDificuldadeFinal = 3;
-            }
         }
 
         Feitico feitico = new Feitico();
