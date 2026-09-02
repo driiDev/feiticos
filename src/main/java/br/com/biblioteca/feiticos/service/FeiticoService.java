@@ -3,10 +3,13 @@ package br.com.biblioteca.feiticos.service;
 import br.com.biblioteca.feiticos.domain.Feitico;
 import br.com.biblioteca.feiticos.dtos.request.FeiticoRequestDTO;
 import br.com.biblioteca.feiticos.dtos.response.FeiticoResponseDTO;
+import br.com.biblioteca.feiticos.enums.Tipo;
 import br.com.biblioteca.feiticos.repository.FeiticoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +55,19 @@ public class FeiticoService {
                 feiticoSalvo.getTipo(),
                 feiticoSalvo.getNivelDificuldade()
         );
+    }
+
+    public List<FeiticoResponseDTO> listarFeiticos(){
+
+        List<Feitico> feiticos = feiticoRepository.findAll();
+
+        return feiticos.stream()
+                .map(feitico -> new FeiticoResponseDTO(
+                feitico.getId(),
+                feitico.getNome(),
+                feitico.getDescricao(),
+                feitico.getTipo(),
+                feitico.getNivelDificuldade()
+        )).toList();
     }
 }
