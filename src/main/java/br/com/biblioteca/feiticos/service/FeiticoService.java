@@ -4,12 +4,17 @@ import br.com.biblioteca.feiticos.domain.Feitico;
 import br.com.biblioteca.feiticos.dtos.request.FeiticoRequestDTO;
 import br.com.biblioteca.feiticos.dtos.response.FeiticoResponseDTO;
 import br.com.biblioteca.feiticos.enums.Tipo;
+import br.com.biblioteca.feiticos.exception.FeiticoNaoEncontradoException;
+import br.com.biblioteca.feiticos.mapper.FeiticoMapper;
 import br.com.biblioteca.feiticos.repository.FeiticoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,13 +53,7 @@ public class FeiticoService {
 
         Feitico feiticoSalvo = feiticoRepository.save(feitico);
 
-        return new FeiticoResponseDTO(
-                feiticoSalvo.getId(),
-                feiticoSalvo.getNome(),
-                feiticoSalvo.getDescricao(),
-                feiticoSalvo.getTipo(),
-                feiticoSalvo.getNivelDificuldade()
-        );
+        return FeiticoMapper.feiticoResponse(feiticoSalvo);
     }
 
     public List<FeiticoResponseDTO> listarFeiticos(){
@@ -62,12 +61,15 @@ public class FeiticoService {
         List<Feitico> feiticos = feiticoRepository.findAll();
 
         return feiticos.stream()
-                .map(feitico -> new FeiticoResponseDTO(
-                feitico.getId(),
-                feitico.getNome(),
-                feitico.getDescricao(),
-                feitico.getTipo(),
-                feitico.getNivelDificuldade()
-        )).toList();
+                .map(FeiticoMapper::feiticoResponse).toList();
+    }
+
+    public FeiticoResponseDTO buscarFeitico(long id){
+
+        Feitico feitico = feiticoRepository.findById(id)
+                .orElseThrow(() -> new FeiticoNaoEncontradoException("Feitiço não encontrado"));
+
+        return FeiticoMapper.feiticoResponse(feitico);
+
     }
 }

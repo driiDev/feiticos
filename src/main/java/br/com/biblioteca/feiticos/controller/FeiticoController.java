@@ -27,4 +27,9 @@ public class FeiticoController {
     public ResponseEntity<List<FeiticoResponseDTO>> listarTodos(){
         return ResponseEntity.status(HttpStatus.OK).body(feiticoService.listarFeiticos());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FeiticoResponseDTO> buscar(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(feiticoService.buscarFeitico(id));
+    }
 }
