@@ -26,12 +26,12 @@ public class FeiticoController {
 
     @GetMapping
     public ResponseEntity<List<FeiticoResponseDTO>> listarTodos(){
-        return ResponseEntity.status(HttpStatus.OK).body(feiticoService.listarFeiticos());
+        return ResponseEntity.ok(feiticoService.listarFeiticos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FeiticoResponseDTO> buscar(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(feiticoService.buscarFeitico(id));
+        return ResponseEntity.ok(feiticoService.buscarFeitico(id));
     }
 
     @PatchMapping("/editar/{id}")
