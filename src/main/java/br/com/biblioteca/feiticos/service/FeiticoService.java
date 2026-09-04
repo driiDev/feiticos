@@ -1,6 +1,7 @@
 package br.com.biblioteca.feiticos.service;
 
 import br.com.biblioteca.feiticos.domain.Feitico;
+import br.com.biblioteca.feiticos.dtos.request.FeiticoEdicaoRequestDTO;
 import br.com.biblioteca.feiticos.dtos.request.FeiticoRequestDTO;
 import br.com.biblioteca.feiticos.dtos.response.FeiticoResponseDTO;
 import br.com.biblioteca.feiticos.enums.Tipo;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -68,6 +70,30 @@ public class FeiticoService {
 
         Feitico feitico = feiticoRepository.findById(id)
                 .orElseThrow(() -> new FeiticoNaoEncontradoException("Feitiço não encontrado"));
+
+        return FeiticoMapper.feiticoResponse(feitico);
+
+    }
+
+    public FeiticoResponseDTO editarFeitico(long id, FeiticoEdicaoRequestDTO request){
+
+        Feitico feitico = feiticoRepository.findById(id)
+                .orElseThrow(() -> new FeiticoNaoEncontradoException("Feitiço não encontrado"));
+
+        if(request.getNome() != null){
+             feitico.setNome(request.getNome());
+        }
+        if(request.getDescricao() != null){
+            feitico.setDescricao(request.getDescricao());
+        }
+        if (request.getTipo() != null){
+            feitico.setTipo(request.getTipo());
+        }
+        if (request.getNivelDificuldade() != null){
+            feitico.setNivelDificuldade(request.getNivelDificuldade());
+        }
+
+        feiticoRepository.save(feitico);
 
         return FeiticoMapper.feiticoResponse(feitico);
 

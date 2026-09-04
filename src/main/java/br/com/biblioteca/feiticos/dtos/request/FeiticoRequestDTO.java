@@ -23,5 +23,4 @@ public class FeiticoRequestDTO {
 
     private Integer nivelDificuldade;
 
-
 }

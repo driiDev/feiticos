@@ -1,5 +1,6 @@
 package br.com.biblioteca.feiticos.controller;
 
+import br.com.biblioteca.feiticos.dtos.request.FeiticoEdicaoRequestDTO;
 import br.com.biblioteca.feiticos.dtos.request.FeiticoRequestDTO;
 import br.com.biblioteca.feiticos.dtos.response.FeiticoResponseDTO;
 import br.com.biblioteca.feiticos.service.FeiticoService;
@@ -31,5 +32,10 @@ public class FeiticoController {
     @GetMapping("/{id}")
     public ResponseEntity<FeiticoResponseDTO> buscar(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(feiticoService.buscarFeitico(id));
+    }
+
+    @PatchMapping("/editar/{id}")
+    public ResponseEntity<FeiticoResponseDTO> editar(@PathVariable Long id, @RequestBody FeiticoEdicaoRequestDTO request){
+        return ResponseEntity.ok(feiticoService.editarFeitico(id, request));
     }
 }
