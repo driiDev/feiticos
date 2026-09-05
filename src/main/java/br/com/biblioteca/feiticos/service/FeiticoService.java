@@ -96,6 +96,13 @@ public class FeiticoService {
         feiticoRepository.save(feitico);
 
         return FeiticoMapper.feiticoResponse(feitico);
+    }
 
+    public void deletarFeitico(Long id){
+
+        Feitico feitico = feiticoRepository.findById(id)
+                .orElseThrow(() -> new FeiticoNaoEncontradoException("Feitiço não encontrado."));
+
+        feiticoRepository.delete(feitico);
     }
 }

@@ -38,4 +38,10 @@ public class FeiticoController {
     public ResponseEntity<FeiticoResponseDTO> editar(@PathVariable Long id, @RequestBody FeiticoEdicaoRequestDTO request){
         return ResponseEntity.ok(feiticoService.editarFeitico(id, request));
     }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        feiticoService.deletarFeitico(id);
+        return ResponseEntity.noContent().build();
+    }
 }
