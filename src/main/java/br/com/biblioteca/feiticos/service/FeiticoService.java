@@ -33,9 +33,7 @@ public class FeiticoService {
                     + "A descrição deve explicar puramente o que o feitiço FAZ (Exemplo para 'Aberto': 'Abre portas e janelas trancadas'). "
                     + "ATENÇÃO: Seja direto, use no máximo 200 caracteres e não adicione nenhuma saudação ou texto extra.";
 
-            String respostaIA = chatModel.call(prompt);
-
-            descricaoFinal = respostaIA;
+            descricaoFinal = chatModel.call(prompt);
         }
 
         if (nivelDificuldadeFinal == null) {
