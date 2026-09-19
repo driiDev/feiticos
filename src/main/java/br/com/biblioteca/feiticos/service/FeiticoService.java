@@ -1,22 +1,17 @@
 package br.com.biblioteca.feiticos.service;
 
 import br.com.biblioteca.feiticos.domain.Feitico;
-import br.com.biblioteca.feiticos.dtos.request.FeiticoEdicaoRequestDTO;
-import br.com.biblioteca.feiticos.dtos.request.FeiticoRequestDTO;
-import br.com.biblioteca.feiticos.dtos.response.FeiticoResponseDTO;
-import br.com.biblioteca.feiticos.enums.Tipo;
+import br.com.biblioteca.feiticos.dtos.request.EditarFeiticoRequest;
+import br.com.biblioteca.feiticos.dtos.request.CadastrarFeiticoRequest;
+import br.com.biblioteca.feiticos.dtos.response.FeiticoResponse;
 import br.com.biblioteca.feiticos.exception.FeiticoNaoEncontradoException;
 import br.com.biblioteca.feiticos.mapper.FeiticoMapper;
 import br.com.biblioteca.feiticos.repository.FeiticoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +20,7 @@ public class FeiticoService {
     private final FeiticoRepository feiticoRepository;
     private final ChatModel chatModel;
 
-    public FeiticoResponseDTO salvarFeitico(FeiticoRequestDTO request) {
+    public FeiticoResponse salvarFeitico(CadastrarFeiticoRequest request) {
 
         String descricaoFinal = request.getDescricao();
         Integer nivelDificuldadeFinal = request.getNivelDificuldade();
@@ -55,27 +50,27 @@ public class FeiticoService {
 
         Feitico feiticoSalvo = feiticoRepository.save(feitico);
 
-        return FeiticoMapper.feiticoResponse(feiticoSalvo);
+        return FeiticoMapper.toResponse(feiticoSalvo);
     }
 
-    public List<FeiticoResponseDTO> listarFeiticos(){
+    public List<FeiticoResponse> listarFeiticos(){
 
         List<Feitico> feiticos = feiticoRepository.findAll();
 
         return feiticos.stream()
-                .map(FeiticoMapper::feiticoResponse).toList();
+                .map(FeiticoMapper::toResponse).toList();
     }
 
-    public FeiticoResponseDTO buscarFeitico(long id){
+    public FeiticoResponse buscarFeitico(long id){
 
         Feitico feitico = feiticoRepository.findById(id)
                 .orElseThrow(() -> new FeiticoNaoEncontradoException("Feitiço não encontrado"));
 
-        return FeiticoMapper.feiticoResponse(feitico);
+        return FeiticoMapper.toResponse(feitico);
 
     }
 
-    public FeiticoResponseDTO editarFeitico(long id, FeiticoEdicaoRequestDTO request){
+    public FeiticoResponse editarFeitico(long id, EditarFeiticoRequest request){
 
         Feitico feitico = feiticoRepository.findById(id)
                 .orElseThrow(() -> new FeiticoNaoEncontradoException("Feitiço não encontrado"));
@@ -95,7 +90,7 @@ public class FeiticoService {
 
         feiticoRepository.save(feitico);
 
-        return FeiticoMapper.feiticoResponse(feitico);
+        return FeiticoMapper.toResponse(feitico);
     }
 
     public void deletarFeitico(Long id){

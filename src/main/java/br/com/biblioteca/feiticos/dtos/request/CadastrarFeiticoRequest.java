@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class FeiticoRequestDTO {
+public class CadastrarFeiticoRequest {
 
     @NotBlank(message = "O nome do feitiço é obrigatório.")
     private String nome;

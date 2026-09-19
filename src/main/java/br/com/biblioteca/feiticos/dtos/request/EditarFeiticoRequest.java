@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeiticoEdicaoRequestDTO {
+public class EditarFeiticoRequest {
 
     @NotBlank
     private String nome;

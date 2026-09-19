@@ -1,8 +1,8 @@
 package br.com.biblioteca.feiticos.controller;
 
-import br.com.biblioteca.feiticos.dtos.request.FeiticoEdicaoRequestDTO;
-import br.com.biblioteca.feiticos.dtos.request.FeiticoRequestDTO;
-import br.com.biblioteca.feiticos.dtos.response.FeiticoResponseDTO;
+import br.com.biblioteca.feiticos.dtos.request.EditarFeiticoRequest;
+import br.com.biblioteca.feiticos.dtos.request.CadastrarFeiticoRequest;
+import br.com.biblioteca.feiticos.dtos.response.FeiticoResponse;
 import br.com.biblioteca.feiticos.service.FeiticoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,22 +20,22 @@ public class FeiticoController {
     private final FeiticoService feiticoService;
 
     @PostMapping
-    public ResponseEntity<FeiticoResponseDTO> cadastrar(@Valid @RequestBody FeiticoRequestDTO request) {
+    public ResponseEntity<FeiticoResponse> cadastrar(@Valid @RequestBody CadastrarFeiticoRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(feiticoService.salvarFeitico(request));
     }
 
     @GetMapping
-    public ResponseEntity<List<FeiticoResponseDTO>> listar(){
+    public ResponseEntity<List<FeiticoResponse>> listar(){
         return ResponseEntity.ok(feiticoService.listarFeiticos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FeiticoResponseDTO> buscar(@PathVariable Long id){
+    public ResponseEntity<FeiticoResponse> buscar(@PathVariable Long id){
         return ResponseEntity.ok(feiticoService.buscarFeitico(id));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<FeiticoResponseDTO> editar(@PathVariable Long id, @RequestBody FeiticoEdicaoRequestDTO request){
+    public ResponseEntity<FeiticoResponse> editar(@PathVariable Long id, @RequestBody EditarFeiticoRequest request){
         return ResponseEntity.ok(feiticoService.editarFeitico(id, request));
     }
 
