@@ -25,7 +25,7 @@ public class FeiticoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FeiticoResponseDTO>> listarTodos(){
+    public ResponseEntity<List<FeiticoResponseDTO>> listar(){
         return ResponseEntity.ok(feiticoService.listarFeiticos());
     }
 
@@ -34,12 +34,12 @@ public class FeiticoController {
         return ResponseEntity.ok(feiticoService.buscarFeitico(id));
     }
 
-    @PatchMapping("/editar/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<FeiticoResponseDTO> editar(@PathVariable Long id, @RequestBody FeiticoEdicaoRequestDTO request){
         return ResponseEntity.ok(feiticoService.editarFeitico(id, request));
     }
 
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         feiticoService.deletarFeitico(id);
         return ResponseEntity.noContent().build();
