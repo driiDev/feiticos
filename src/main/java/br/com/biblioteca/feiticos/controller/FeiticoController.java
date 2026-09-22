@@ -4,6 +4,7 @@ import br.com.biblioteca.feiticos.dtos.request.EditarFeiticoRequest;
 import br.com.biblioteca.feiticos.dtos.request.CadastrarFeiticoRequest;
 import br.com.biblioteca.feiticos.dtos.response.FeiticoResponse;
 import br.com.biblioteca.feiticos.service.FeiticoService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class FeiticoController {
 
     private final FeiticoService feiticoService;
 
+    @ApiResponse(responseCode = "201", description = "Feitiço criado com sucesso")
     @PostMapping
     public ResponseEntity<FeiticoResponse> cadastrar(@Valid @RequestBody CadastrarFeiticoRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(feiticoService.salvarFeitico(request));
@@ -39,6 +41,7 @@ public class FeiticoController {
         return ResponseEntity.ok(feiticoService.editarFeitico(id, request));
     }
 
+    @ApiResponse(responseCode = "204", description = "feitiço deletado com sucesso")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
         feiticoService.deletarFeitico(id);

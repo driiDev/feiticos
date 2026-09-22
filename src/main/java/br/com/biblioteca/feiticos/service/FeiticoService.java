@@ -27,11 +27,12 @@ public class FeiticoService {
 
         if (descricaoFinal == null || descricaoFinal.isBlank()) {
 
-            String prompt = "Você é um grimório técnico e enciclopédico do universo de magia. "
-                    + "Gere uma descrição OBJETIVA e FOCADA NO EFEITO PRÁTICO para o feitiço: " + request.getNome()
-                    + " que pertence à categoria: " + request.getTipo() + ". "
-                    + "A descrição deve explicar puramente o que o feitiço FAZ (Exemplo para 'Aberto': 'Abre portas e janelas trancadas'). "
-                    + "ATENÇÃO: Seja direto, use no máximo 200 caracteres e não adicione nenhuma saudação ou texto extra.";
+            String prompt = """
+                Você é um grimório técnico e direto.
+                Gere uma descrição de 1 frase (efeito prático e direto) para o feitiço: %s da categoria: %s.
+                Responda apenas com o efeito, sem introduções, aspas ou saudações.
+                Exemplo: Abre portas e janelas trancadas por meios físicos ou mágicos simples.
+                """.formatted(request.getNome(), request.getTipo());
 
             descricaoFinal = chatModel.call(prompt);
         }
