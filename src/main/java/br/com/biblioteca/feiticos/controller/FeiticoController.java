@@ -5,6 +5,7 @@ import br.com.biblioteca.feiticos.dtos.request.CadastrarFeiticoRequest;
 import br.com.biblioteca.feiticos.dtos.response.FeiticoResponse;
 import br.com.biblioteca.feiticos.service.FeiticoService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Feitiços", description = "Operações relacionadas ao gerenciamento de feitiços")
 @RestController
 @RequestMapping("/feiticos")
 @RequiredArgsConstructor
