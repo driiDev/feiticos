@@ -1,7 +1,7 @@
 package br.com.biblioteca.feiticos.dtos.request;
 
 import br.com.biblioteca.feiticos.enums.Tipo;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +13,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EditarFeiticoRequest {
 
-    @NotBlank
+    @Size(min = 3)
     private String nome;
 
-    @NotBlank
+    @Size(min =  5)
     private String descricao;
 
     private Tipo tipo;

@@ -37,7 +37,7 @@ public class FeiticoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<FeiticoResponse> editar(@PathVariable Long id, @RequestBody EditarFeiticoRequest request){
+    public ResponseEntity<FeiticoResponse> editar(@PathVariable Long id, @Valid @RequestBody EditarFeiticoRequest request){
         return ResponseEntity.ok(feiticoService.editarFeitico(id, request));
     }
 
