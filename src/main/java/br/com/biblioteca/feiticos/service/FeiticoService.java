@@ -95,7 +95,7 @@ public class FeiticoService {
     public void deletarFeitico(Long id){
 
         Feitico feitico = feiticoRepository.findById(id)
-                .orElseThrow(() -> new FeiticoNaoEncontradoException("Feitiço não encontrado."));
+                .orElseThrow(() -> new FeiticoNaoEncontradoException("Feitiço não encontrado"));
 
         feiticoRepository.delete(feitico);
     }
