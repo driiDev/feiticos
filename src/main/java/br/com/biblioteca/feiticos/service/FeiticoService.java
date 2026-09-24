@@ -38,7 +38,7 @@ public class FeiticoService {
         }
 
         if (nivelDificuldadeFinal == null) {
-                nivelDificuldadeFinal = 3;
+                nivelDificuldadeFinal = 5;
         }
 
         Feitico feitico = new Feitico();

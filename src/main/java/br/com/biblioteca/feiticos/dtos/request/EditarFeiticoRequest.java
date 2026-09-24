@@ -1,6 +1,8 @@
 package br.com.biblioteca.feiticos.dtos.request;
 
 import br.com.biblioteca.feiticos.enums.Tipo;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +22,8 @@ public class EditarFeiticoRequest {
     private String descricao;
 
     private Tipo tipo;
-
+    
+    @Min(1) @Max(10)
     private Integer nivelDificuldade;
 
 
