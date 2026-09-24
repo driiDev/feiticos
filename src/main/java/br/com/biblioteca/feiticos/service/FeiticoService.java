@@ -29,10 +29,10 @@ public class FeiticoService {
 
             String prompt = """
                 Você é um grimório técnico e direto.
-                Gere uma descrição de 1 frase (efeito prático e direto) para o feitiço: %s da categoria: %s.
+                Gere uma descrição de 1 frase (efeito prático e direto) para o feitiço: %s.
                 Responda apenas com o efeito, sem introduções, aspas ou saudações.
                 Exemplo: Abre portas e janelas trancadas por meios físicos ou mágicos simples.
-                """.formatted(request.getNome(), request.getTipo());
+                """.formatted(request.getNome());
 
             descricaoFinal = chatModel.call(prompt);
         }
